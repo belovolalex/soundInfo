@@ -1,0 +1,84 @@
+
+// media
+
+xs()
+ @media (min-width 400px)
+    {block}
+sm()
+ @media (min-width 768px)
+   {block}
+md()
+ @media (min-width 992px)
+   {block}
+lg()
+ @media (min-width 1220px)
+   {block}
+xl()
+ @media (min-width 1600px)
+    {block}
+
+
+
+//mixins
+
+gradient()
+  background-image: linear-gradient(to right top, #1e2f4f, #1e496c, #1b6687, #1b839e, #2ca1b1)
+shadow()
+  box-shadow 0 1px 8px rgba(0,0,0,0.4)
+shadow-strong()
+  box-shadow 10px 10px 14px 1px rgba(00,00,00,0.2)
+center()
+  left 50%
+  top 50%
+  transform translateX(-50%) translateY(-50%)
+
+
+//variabels
+
+$tomato = #F85A53
+$blue = #203152
+$blue-hover = #152035
+$light = #F1F3F6
+$light-grey = #C5CAD4
+$grey = #7E8DA6
+
+$height-header = 60px
+
+//--------------------------------------------//
+
+
+*
+  letter-spacing 1.3px
+  margin 0
+  padding 0
+  box-sizing border-box
+  font-family sans-serif
+html
+  font-size 14px
+  +sm()
+    font-size 16px
+body
+  min-height 100vh
+  height 100%
+  background-color #eef0f2
+  // gradient()
+button
+  outline none
+  border none
+  cursor pointer
+a
+  cursor pointer
+  text-decoration none
+input
+  border none
+  outline none
+.container
+  margin 0 auto
+  padding 0 10px
+  +sm()
+    width 740px
+    padding 0 15px
+  +md()
+    width 940px
+  +lg()
+    width 1200px
