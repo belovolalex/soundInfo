@@ -5,12 +5,8 @@ export default {
     type: 'chart.gettopartists'
   },
   getters: {
-    getType(state) {
-      return state.type
-    },
-    getArtists(state) {
-      return state.artists
-    }
+    getType: (state) => state.type,
+    getArtists: (state) => state.artists
   },
   mutations: {
     artists(state, data) {

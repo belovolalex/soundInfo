@@ -27,7 +27,7 @@ export default {
 
 <style lang="stylus" scoped>
 .active-link
-  background-color $grey
+  background-color $light-grey
   color $light
 .wrapper-header
   height $height-header
@@ -47,7 +47,6 @@ export default {
   transition 0.3s
   padding 0 20px
   color $blue
-  font-weight bold
   height $height-header
   display flex
   align-items center

@@ -23,7 +23,6 @@ export default {
   background-image url("../assets/img.png")
   opacity .9
 .logo
-  font-weight bold
   font-size 20px
   position relative
   display inline-block

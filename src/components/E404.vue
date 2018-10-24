@@ -1,8 +1,7 @@
 <template lang="pug">
-  
-  .wrapper
-    //- img(src="../assets/vinul1.png")
-    p Страница не найдена
+  .missing-page
+    .wrapper
+      p Страница не найдена
 </template>
 
 <script>
@@ -12,7 +11,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+.missing-page
+  gradient()
 .wrapper
   background url("../assets/vinul2.png")
   background-position center
@@ -27,7 +27,7 @@ export default {
 
 p
   z-index 1
-  font-size 2rem
+  font-size 1.5rem
   margin auto
   color $light
   text-align center

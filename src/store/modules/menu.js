@@ -11,8 +11,8 @@ export default {
         text: 'Топ песни'
       },
       {
-        url: '/top-tags',
-        text: 'Топ теги'
+        url: '/authorization',
+        text: 'login'
       }
     ] 
   },

@@ -2,29 +2,34 @@ export default {
   namespaced: true,
   state: {
     name: '',
-    type: 'artist.getinfo&artist=',
-    artist: {}
+    methods: {
+      info: 'artist.getinfo&artist=',
+      tags: 'artist.gettoptags&artist=',
+    },
+    artist: {
+
+    }
   },
   getters: {
-    getType(state) {
-      return state.type + state.name
+    getMethodInfo(state) {
+      return state.methods.info + state.name
     },
-    getArtist(state) {
+    getInfo(state) {
       return state.artist
+    },
+    getTags(state) {
+      return state.tags
     }
   },
   mutations: {
     name(state, name) {
       state.name = name
     },
-    artist(state, data) {
+    info(state, data) {
       state.artist = data
     },
     clear(state) {
       state.artist = {}
     }
-  },
-  actions: {
-
   }
 }
