@@ -1,12 +1,19 @@
 <template lang="pug">
-  router-link(to="/").logo
-    | Sound
-    span.logo-info Info
+  .wrapper-logo(@click="toMain")
+    router-link.logo(
+                    to="/"
+                    )
+      | Sound
+      span.logo-info Info
 </template>
 
 <script>
 export default {
-
+  methods: {
+    toMain() {
+      this.$store.commit('menu/hide')
+    }
+  }
 }
 </script>
 

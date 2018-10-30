@@ -33,7 +33,7 @@ export default {
 
 <style scoped lang="stylus">
 .wrapper-top-artists
-  gradient()
+  // gradient()
   min-height "calc(100vh - %s)" % $height-header
   height 100%
 .container

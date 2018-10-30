@@ -1,19 +1,24 @@
+import {router} from '../../routes'
 import firebase from 'firebase'
 export default {
   namespaced: true,
   state: {
     user: {
       isAuth: false,
-      uid: null
+      uid: null,
+      userName: ''
     },
     errorSignUp: '',
-    errorSignIn: ''
+    errorSignIn: '',
+    storageName: localStorage.name
   },
   getters: {
     getErrorSignUp: (state) => state.errorSignUp,
     getErrorSignIn: (state) => state.errorSignIn,
     getIsAuth: (state) => state.user.isAuth,
-
+    getUserNameLink: (state) => state.storageName != '' ? 'profile' : 'login',
+    getUserLink: (state) => state.storageName != '' ? `/user/${localStorage.name}` : '/authorization',
+    getStorageName: (state) => state.storageName
   },
   mutations: {
     errorSignUp(state, error) {
@@ -22,34 +27,56 @@ export default {
     errorSignIn(state, error) {
       state.errorSignIn = error
     },
-    // logout(state) {
-    //   state.user = {
-    //     isAuth: false,
-    //     uid: null
-    //   }
-    // },
     setId(state, uid) {
       state.user.uid = uid
     },
+    setName(state, name) {
+      if(!state.user.userName) {
+        state.user.userName = name
+      }
+    },
+    setStorageName(state, name) {
+      localStorage.setItem('name', name)
+      state.storageName = localStorage.getItem('name')
+    },
+    cleanStorageName(state) {
+      localStorage.setItem('name', '')
+      state.storageName = localStorage.getItem('name')
+    },
     activeStateUser(state, val) {
       state.user.isAuth = val
+    },
+    cleanDataUser(state) {
+      state.user = {
+        isAuth: false,
+        uid: null,
+        userName: ''
+      }
     }
   },
   actions: {
-    signUp(store, peyload) {
-      firebase.auth().createUserWithEmailAndPassword(peyload.email, peyload.password)
-      .then(user => console.log('user', user))
+    signUp(store, payload) {
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+      .then(() => {
+        let currentUser = firebase.auth().currentUser
+        currentUser.updateProfile({
+          displayName: payload.name
+        })
+      })
+      .then(() => {
+        store.commit('setName', payload.name)
+      })
       .catch(function(error) {
         var errorMessage = error.message;
         store.commit('errorSignUp', errorMessage)
-        console.log('errorMessage', errorMessage)
       })
     },
-    signIn(store, peyload) {
-      firebase.auth().signInWithEmailAndPassword(peyload.email, peyload.password)
+    signIn(store, payload) {
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
       .then(user => {
-        // store.commit('setId', user.uid)
-        // store.commit('activeStateUser', true)
+        store.commit('setNameClear', user.user.displayName)
+        store.commit('setStorageName', user.user.displayName)
+        router.push('/')
       })
       .catch(function(error) {
         let errorMessage = error.message
@@ -57,16 +84,22 @@ export default {
       });
     },
     signOut(store) {
-      firebase.auth().signOut().then(function() {
-        store.commit('activeStateUser', false)
-      }).catch(function(error) {
-        // An error happened.
-      });
+      firebase.auth().signOut()
+        .then(function() {
+          store.commit('nameClear')
+          store.commit('cleanDataUser')
+          store.commit('cleanStorageName')
+          router.push('/')
+
+        }).catch(function(error) {
+          console.log('error', error)
+      })
     },
     stateAuthorization(store, payload) {
       if(payload) {
         store.commit('activeStateUser', true)
-        store.commit('setId', payload)
+        store.commit('setId', payload.uid)
+        store.commit('setName', payload.displayName)
       }
       else {
         store.commit('activeStateUser', false)

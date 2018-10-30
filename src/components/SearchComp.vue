@@ -42,11 +42,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.shadow-dark
-  shadow-strong()
-.shadow-light
-  shadow-white()
-  
 .not-found
   margin-top 30px
   color white
@@ -54,34 +49,50 @@ export default {
 form
   display flex
   justify-content space-between
+.input-search:focus
+  background-color #26385c
+  transition 0.3s
+  padding-left 20px
+  padding-right 20px
 .input-search
-  width 80%
-  border-radius 30px
+  font-weight normal
+  transition 0.3s
+  width 70%
   padding 18px 10px
-  padding-left 30px
-  color $blue
-  background-color $light
-  font-size 1rem
-button:hover
-  shadow-white()
-  background-color $blue
-  transition 0.3s
-  border 2px solid $blue
+  padding-left 0px
   color $light-grey
-button
-  color $light
+  background-color $blue
   font-size 1rem
-  width 15%
-  transition 0.3s
-  border-radius 30px
-  background-repeat no-repeat
-  background-position center center
+  border-bottom 1px solid $light-blue
+  +sm()
+    width 80%
+button:hover:after
+  +md()
+    height 100%
+    transition 0.3s
+    color $light-grey
+button
+  z-index 1
+  position relative
+  font-weight normal
+  color $light-grey
+  font-size 1rem
   background-color transparent
-  border 2px solid $light
-  // background-color $blue
-  // background-image: linear-gradient(to left top, #f85a53, #ce4372, #93407e, #533d72, #203152)
-  // background-size 30px
-  // gradient()
-  // +xs()
-    // background-size 40px
+  border 1px solid $light-blue
+  width 26%
+  +sm()
+    width 15%
+
+button:after
+  content ''
+  position absolute
+  bottom 0
+  left 0
+  width 100%
+  height 0
+  background #26385c
+  transition 0.3s
+  z-index -1
+placeholder()
+
 </style>

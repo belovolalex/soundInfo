@@ -17,7 +17,9 @@ new Vue({
     let vm = this
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        vm.$store.dispatch('user/stateAuthorization', user.uid)
+        vm.$store.dispatch('user/stateAuthorization', user)
+      } else {
+          console.log('userNo', user)
       }
     });
   }

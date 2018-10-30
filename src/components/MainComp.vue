@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.main-page
+  .main-page
     .container
       .wrapper-search
         search-comp
@@ -8,18 +8,20 @@
 <script>
 import SearchComp from './SearchComp'
 export default {
-components: {
-  SearchComp
-}
+  components: {
+    SearchComp
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
 .wrapper-search
-  padding-top 10%
-  margin-bottom 60px
+  width 100%
 .main-page
-  gradient()
-  min-height 100vh
+  background-color $blue
+  display flex
+  min-height "calc(100vh - %s)" % $height-header
   height 100%
+.container
+  margin auto
 </style>

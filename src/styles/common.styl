@@ -35,16 +35,31 @@ center()
   left 50%
   top 50%
   transform translateX(-50%) translateY(-50%)
-
+placeholder()
+  input::-webkit-input-placeholder
+    color $light-grey
+    font-weight normal
+  input::-moz-placeholder
+    font-weight normal
+    color $light-grey
+  input:-moz-placeholder
+    font-weight normal
+    color $light-grey
+  input:-ms-input-placeholder
+    font-weight normal
+    color $light-grey
 
 //variabels
 
 $tomato = #F85A53
-$blue = #203152
+$light-blue = #41557c
+// $blue = #203152
+$blue = #0d1b38
 $blue-hover = #152035
 $light = #F1F3F6
 $light-grey = #C5CAD4
 $grey = #7E8DA6
+$gold = #c76a1f
 
 $height-header = 60px
 
@@ -83,6 +98,7 @@ ul
   padding 0
   list-style-type none
 .container
+  width 100%
   margin 0 auto
   padding 0 10px
   +sm()
@@ -92,3 +108,16 @@ ul
     width 940px
   +lg()
     width 1200px
+.fixed:after
+  z-index 2
+  content ''
+  position absolute
+  top $height-header
+  right 0
+  bottom 0
+  left 0
+  background-color rgba(0, 0, 0, 0.7)
+.fixed
+  position relative
+  width 100%
+  position fixed
