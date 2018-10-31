@@ -45,6 +45,8 @@ export default {
       display block
       margin 30px 0
       text-align center
+      span
+        display block
   .mob-menu
     padding 15px
     overflow auto

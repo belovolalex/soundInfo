@@ -54,11 +54,7 @@ export default {
 .tomato
   color $tomato
 .artist
-  margin-top 30px
-  padding 30px
-  border-radius 15px
-  +md()
-    margin-top 60px
+  padding-block()
   &__img
     max-width 100%
   &__name
@@ -126,17 +122,13 @@ export default {
   content '.'
   width 5px
   height 5px
-.artist__tag:after
-  display block
-  content ''
-  border-bottom solid 2px $blue
-  transform scaleX(0)
-  transition .3s
-.artist__tag:hover:after
-  +md()
-    transform scaleX(1)
-    transition .3s
+.artist__tag:hover
+  color $tomato
+  transition 0.3s
+  &:before
+    color $blue
 .artist__tag
+  transition 0.3s
   color $blue
   display inline-block
   padding 5px

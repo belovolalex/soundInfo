@@ -1,7 +1,8 @@
 <template lang="pug">
-  .user-page
-    h1 hello {{name}}
-    p.logout(@click="logout") выход
+  section.user-page
+    .container
+      h1 hello {{name}}
+      p.logout(@click="logout") выход
 </template>
 
 <script>
@@ -21,8 +22,9 @@ export default {
 
 <style lang="stylus">
 .user-page
-  height 100vh
+  height "calc(100vh - %s)" % $height-header
   min-height 100%
+  padding-block()
 .logout:hover
   border-bottom 1px solid $tomato
   transition 0.3s

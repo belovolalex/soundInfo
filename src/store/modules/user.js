@@ -65,6 +65,8 @@ export default {
       })
       .then(() => {
         store.commit('setName', payload.name)
+        store.commit('setStorageName', payload.name)
+        router.push('/')
       })
       .catch(function(error) {
         var errorMessage = error.message;
@@ -74,7 +76,6 @@ export default {
     signIn(store, payload) {
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
       .then(user => {
-        store.commit('setNameClear', user.user.displayName)
         store.commit('setStorageName', user.user.displayName)
         router.push('/')
       })
@@ -86,11 +87,9 @@ export default {
     signOut(store) {
       firebase.auth().signOut()
         .then(function() {
-          store.commit('nameClear')
           store.commit('cleanDataUser')
           store.commit('cleanStorageName')
           router.push('/')
-
         }).catch(function(error) {
           console.log('error', error)
       })

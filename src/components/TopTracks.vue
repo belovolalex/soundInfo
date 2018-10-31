@@ -43,6 +43,7 @@ export default {
 <style lang="stylus">
 .section-top-tracks
   background-color $blue
+  padding-block()
 .wrapper-top-tracks
   display flex
   flex-wrap wrap

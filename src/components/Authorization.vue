@@ -48,8 +48,6 @@ export default {
       if(this.signUpPassword && this.signUpEmail && !this.name) {
         this.setName = true
         this.errorSignUp = ''
-
-
       } else {
         this.$store.dispatch('user/signUp', {
           email: this.signUpEmail,

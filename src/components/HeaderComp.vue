@@ -26,6 +26,7 @@ export default {
 
 <style lang="stylus" scoped>
 .header
+  width 100%
   position relative
   height $height-header
   background-color $light

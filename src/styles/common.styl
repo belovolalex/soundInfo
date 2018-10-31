@@ -21,8 +21,12 @@ xl()
 
 //mixins
 
-gradient()
-  background-image: linear-gradient(to right top, #1e2f4f, #1e496c, #1b6687, #1b839e, #2ca1b1)
+padding-block()
+  padding-top 30px
+  padding-bottom 30px
+  +sm()
+    padding-top 50px
+    padding-bottom 50px
 shadow()
   box-shadow 0 1px 8px rgba(0,0,0,0.4)
 shadow-strong()
@@ -63,6 +67,7 @@ $gold = #c76a1f
 
 $height-header = 60px
 
+
 //--------------------------------------------//
 
 
@@ -82,7 +87,7 @@ body
   min-height 100vh
   height 100%
   background-color #eef0f2
-  // gradient()
+  overflow-y scroll
 button
   outline none
   border none
