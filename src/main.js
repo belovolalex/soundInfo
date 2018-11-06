@@ -14,13 +14,7 @@ new Vue({
   store,
   router,
   created() {
-    let vm = this
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        vm.$store.dispatch('user/stateAuthorization', user)
-      } else {
-          console.log('userNo', user)
-      }
-    });
+    this.$store.commit('user/setUser', localStorage.user)
+    this.$store.commit('menu/setUserLink', localStorage.user)
   }
 }).$mount('#app')

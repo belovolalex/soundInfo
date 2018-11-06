@@ -22,9 +22,9 @@ const routes = [
   {
     path: '/authorization',
     component: Authorization,
-    // beforeEnter: (to, from, next) => {
-    //   store.getters['user/getStateUser'] ? next('/') : next()
-    // }
+    beforeEnter: (to, from, next) => {
+      store.getters['user/getStateUser'] ? next('/') : next()
+    }
 
     //  setTimeout(function() {
     //   console.log('store', store.getters['user/getStateUser'])
@@ -48,9 +48,9 @@ const routes = [
   {
     path: '/home',
     component: User,
-    // beforeEnter: (to, from, next) => {
-    //   store.getters['user/getStateUser'] ? next() : next('/')
-    // }
+    beforeEnter: (to, from, next) => {
+      store.getters['user/getStateUser'] ? next() : next('/')
+    }
   },
   // {
   //   path: '/user/:name',

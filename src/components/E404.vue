@@ -12,7 +12,7 @@ export default {
 
 <style lang="stylus" scoped>
 .missing-page
-  gradient()
+  background-color $blue
 .wrapper
   background url("../assets/vinul2.png")
   background-position center

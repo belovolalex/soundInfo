@@ -1,9 +1,8 @@
 <template lang="pug">
 .wrapper-authorization
   .container
-    form(
-          :class="{spin : spin}"
-          ref="form"
+    form(:class="{spin : spin}"
+        ref="form"
         )
       p.error-title {{ error }}
       input(type="text" v-model="email" placeholder="email")
@@ -29,14 +28,15 @@ export default {
   computed: {
     ...mapGetters('user', {
       stateAuthorization: 'getStateAuthorization',
+      activeStateAuthorization: 'getActiveStateAuthorization',
       error: 'getError'
     })
   },
   methods: {
     changeTypeAuthorization() {
-      this.$store.commit('user/changeStateAuthorization')
       this.email = ''
       this.password = ''
+      this.$store.commit('user/changeStateAuthorization')
       this.spin = true
       this.$refs.form.addEventListener('animationend', () => {
         this.spin = false

@@ -3,106 +3,55 @@ import firebase from 'firebase'
 export default {
   namespaced: true,
   state: {
-    user: {
-      isAuth: false,
-      uid: null,
-      userName: ''
-    },
-    errorSignUp: '',
-    errorSignIn: '',
-    storageName: localStorage.name
+    user: null,
+    authorization: ['login', 'registration'],
+    error: null
   },
   getters: {
-    getErrorSignUp: (state) => state.errorSignUp,
-    getErrorSignIn: (state) => state.errorSignIn,
-    getIsAuth: (state) => state.user.isAuth,
-    getUserNameLink: (state) => state.storageName != '' ? 'profile' : 'login',
-    getUserLink: (state) => state.storageName != '' ? `/user/${localStorage.name}` : '/authorization',
-    getStorageName: (state) => state.storageName
+    stateUser: (state) => state.user != null,
+    getActiveStateAuthorization: (state) => state.authorization[0],
+    getError: (state) => state.error,
+    getStateAuthorization: (state) => state.authorization,
   },
   mutations: {
-    errorSignUp(state, error) {
-      state.errorSignUp = error
+    changeStateAuthorization(state) {
+      state.error = null
+      state.authorization = state.authorization.reverse()
     },
-    errorSignIn(state, error) {
-      state.errorSignIn = error
+    setError(state, payload) {
+      state.error = payload.message
     },
-    setId(state, uid) {
-      state.user.uid = uid
-    },
-    setName(state, name) {
-      if(!state.user.userName) {
-        state.user.userName = name
-      }
-    },
-    setStorageName(state, name) {
-      localStorage.setItem('name', name)
-      state.storageName = localStorage.getItem('name')
-    },
-    cleanStorageName(state) {
-      localStorage.setItem('name', '')
-      state.storageName = localStorage.getItem('name')
-    },
-    activeStateUser(state, val) {
-      state.user.isAuth = val
-    },
-    cleanDataUser(state) {
-      state.user = {
-        isAuth: false,
-        uid: null,
-        userName: ''
-      }
+    setUser(state, payload) {
+      state.error = null
+      localStorage.user = payload
+      state.user = localStorage.getItem('user')
+      router.push('/')
     }
   },
   actions: {
-    signUp(store, payload) {
-      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-      .then(() => {
-        let currentUser = firebase.auth().currentUser
-        currentUser.updateProfile({
-          displayName: payload.name
+    authorization({getters, commit}, payload) {
+      let auth = getters.getActiveStateAuthorization === 'login' ? firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+                                                                 : firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+      auth
+        .then(user => {
+          commit('setUser', user.user.uid)
+          commit('menu/setUserLink', localStorage.user, {root: true})
         })
-      })
-      .then(() => {
-        store.commit('setName', payload.name)
-        store.commit('setStorageName', payload.name)
-        router.push('/')
-      })
-      .catch(function(error) {
-        var errorMessage = error.message;
-        store.commit('errorSignUp', errorMessage)
-      })
-    },
-    signIn(store, payload) {
-      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-      .then(user => {
-        store.commit('setStorageName', user.user.displayName)
-        router.push('/')
-      })
-      .catch(function(error) {
-        let errorMessage = error.message
-        store.commit('errorSignIn', errorMessage)
-      });
-    },
-    signOut(store) {
-      firebase.auth().signOut()
-        .then(function() {
-          store.commit('cleanDataUser')
-          store.commit('cleanStorageName')
-          router.push('/')
-        }).catch(function(error) {
-          console.log('error', error)
-      })
-    },
-    stateAuthorization(store, payload) {
-      if(payload) {
-        store.commit('activeStateUser', true)
-        store.commit('setId', payload.uid)
-        store.commit('setName', payload.displayName)
-      }
-      else {
-        store.commit('activeStateUser', false)
-      }
+        .catch(error => {
+          commit('setError', error)
+          console.log(error)
+        })
+      },
+      logOut({commit}) {
+        firebase.auth().signOut()
+        .then(() => {
+          commit('setUser', null)
+          commit('menu/setUserLink', localStorage.user, {root: true})
+        })
+        .catch(error => {
+          commit('setError', error)
+          console.log(error)
+        })
     }
   }
 }

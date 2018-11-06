@@ -1,8 +1,8 @@
 <template lang="pug">
   section.user-page
     .container
-      h1 hello {{name}}
       p.logout(@click="logout") выход
+
 </template>
 
 <script>
@@ -14,8 +14,8 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('user/signOut')
-    }
+      this.$store.dispatch('user/logOut')
+    },
   }
 }
 </script>

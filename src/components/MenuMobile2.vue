@@ -6,6 +6,11 @@
                       active-class="active-link"
                       )
       span(@click="toMain") {{ item.text }}
+    router-link.menu__el(
+                        active-class="active-link"
+                        :to="userLink"
+                        )
+      span(@click="toMain") {{ userLink }}
 </template>
 
 <script>
@@ -15,6 +20,7 @@ export default {
     ...mapGetters('menu', {
       show: 'getShow',
       list: 'getList',
+      userLink: 'getUserLink'
     })
   },
   methods: {

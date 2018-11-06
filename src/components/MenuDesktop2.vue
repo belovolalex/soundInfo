@@ -1,10 +1,13 @@
 <template lang="pug">
-  .menu
+  .menu(v-if="userLink")
     router-link.menu__el(v-for="(item, idx) in list"
                         :key="idx"
                         :to="item.url"
                         active-class="active-link"
                         ) {{ item.text }}
+    router-link.menu__el(
+      active-class="active-link"
+      :to="userLink") {{ userLink }}
 </template>
 
 <script>
@@ -17,8 +20,9 @@ export default {
   },
   computed: {
     ...mapGetters('menu', {
-      list: 'getList'
-    }) 
+      list: 'getList',
+      userLink: 'getUserLink'
+    })
   }
 }
 </script>

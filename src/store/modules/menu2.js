@@ -1,6 +1,7 @@
 export default {
   namespaced: true,
   state: {
+    userLink: '',
     show: false,
     menuList: [
       {
@@ -10,22 +11,19 @@ export default {
       {
         url: '/top-tracks',
         text: 'Топ песни'
-      },
-      {
-        url: '',
-        text: ''  
       }
-    ]
+    ] 
   },
   getters: {
+    getList: (state) => state.menuList,
     getShow: (state) => state.show,
-    getList: (state) => state.menuList
+    getUserLink: (state) => state.userLink
   },
   mutations: {
-    setUserLink(state, payload) {
-      let userLink = state.menuList[state.menuList.length - 1]
-      payload == 'null' || payload === undefined ? (userLink.url = '/authorization', userLink.text = 'login')
-                                                 : (userLink.url = '/home', userLink.text = 'home')
+    userLink(state, stateUser) {
+      console.log('stateUser', stateUser)
+      stateUser ? state.userLink = '/home' : state.userLink = '/authorization'
+
     },
     changeShow(state) {
       state.show = !state.show
@@ -50,6 +48,11 @@ export default {
     }
   },
   actions: {
-  
+    stateAuthorization({commit}, store) {
+      // console.log('store', store.getters['user/getStateUser'])
+      commit('userLink', store.getters['user/getStateUser'])
+      // console.log('store.getters[user/getStateUser]', store.getters['user/getStateUser'])
+      // console.log('store', store.getters)
+    }
   }
 }
