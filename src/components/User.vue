@@ -1,7 +1,7 @@
 <template lang="pug">
   section.user-page
     .container
-      p.logout(@click="logout") выход
+      p.logout(@click="logout") exit
 
 </template>
 

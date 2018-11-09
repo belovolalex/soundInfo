@@ -22,16 +22,16 @@ const routes = [
   {
     path: '/authorization',
     component: Authorization,
-    // beforeEnter: (to, from, next) => {
-    //   store.getters['user/getStateUser'] ? next('/') : next()
-    // }
-
-    //  setTimeout(function() {
-    //   console.log('store', store.getters['user/getStateUser'])
-    //  },3000)
-      // console.log(localStorage.user)
-      // JSON.parse(localStorage.user) ? next('/') : next()
-    // }
+    beforeEnter: (to, from, next) => {
+      store.getters['user/stateUser'] ? next() : next('/')
+    }
+  },
+  {
+    path: '/home',
+    component: User,
+    beforeEnter: (to, from, next) => {
+      store.getters['user/stateUser'] ? next() : next('/')
+    }
   },
   {
     path: '/top-tracks',
@@ -44,18 +44,7 @@ const routes = [
   {
     path: '*',
     component: E404
-  },
-  {
-    path: '/home',
-    component: User,
-    // beforeEnter: (to, from, next) => {
-    //   store.getters['user/getStateUser'] ? next() : next('/')
-    // }
-  },
-  // {
-  //   path: '/user/:name',
-  //   component: User
-  // },
+  }
 ]
 export const router = new VueRouter({
   routes,

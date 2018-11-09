@@ -1,7 +1,7 @@
 <template lang="pug">
   .missing-page
     .wrapper
-      p Страница не найдена
+      p Page not found
 </template>
 
 <script>

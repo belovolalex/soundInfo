@@ -1,7 +1,6 @@
 <template lang="pug">
   section.section-top-tracks
     .container
-      //- .wrapper-top-tracks
       .wrapper-top-tracks(v-if="tracksLength")
         a.track(
                 :href="item.url"
@@ -11,11 +10,9 @@
           img.track__img(
                         :src="item.image[1]['#text']"
                         )
-          span.track__artist-name {{item.artist.name }} - 
-          span.track__name {{ item.name }}
-      //- .wrong(v-else-if="!tracksLength")
-      .wrong(v-else)
-        p на данный момент нет данных
+          .track-wrap-name
+            p.track__artist-name {{item.artist.name }} 
+            P.track__name {{ item.name }}
 </template>
 
 <script>
@@ -42,14 +39,29 @@ export default {
 
 <style lang="stylus">
 .section-top-tracks
-  background-color $blue
+  background-color $light
   padding-block()
+  min-height "calc(100vh - %s)" % $height-header
+  height 100%
 .wrapper-top-tracks
   display flex
   flex-wrap wrap
   justify-content space-between
+  position relative
+  &:after
+    +sm()
+      flex-basis: auto
+      content ""
+      flex-basis: 48%
+    +lg()
+      flex-basis: 31.7%
+.track:hover
+  box-shadow none
+  transition 0.3s
+  background-color $blue
 .track:hover .track__artist-name,
-.track:hover .track__name
+.track:hover .track__name,
+.track:hover .track__number
   transition 0.3s
   color $tomato
 .track
@@ -57,24 +69,38 @@ export default {
   position relative
   display flex
   align-items center
-  padding 10px 0
-  border-bottom 1px solid $light-blue
+  padding 30px 20px
   width 100%
-  +md()
+  background-color $light-grey
+  margin 15px 0
+  shadow-light()
+  +sm()
     width 48%
+  +lg()
+    width 31.7%
   &__img
-    margin-right 15px
+    margin-right 8px
     border-radius 50%
-    border 3px solid $grey
+    border 2px solid $blue
+    padding 2px
+    +xs()
+      margin-right 15px
   &__number
     flex none
-    margin-right 15px
     width 25px
-    color $tomato
+    color $blue
+    transition .3s
+    +xs()
+      margin-right 5px
+    +lg()
+      margin-right 10px
   &__name
-    color $grey
-    margin-left 10px
+    color $blue
+    transition .3s
+    font-size 0.9rem
+    font-style oblique
   &__artist-name
-    color $grey
+    transition .3s
+    color $blue
     white-space nowrap
 </style>

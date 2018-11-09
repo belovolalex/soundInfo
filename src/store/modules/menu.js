@@ -5,11 +5,11 @@ export default {
     menuList: [
       {
         url: '/top-artists',
-        text: 'Топ исполнители'
+        text: 'Top artists'
       },
       {
         url: '/top-tracks',
-        text: 'Топ песни'
+        text: 'Top tracks'
       },
       {
         url: '',
@@ -32,24 +32,13 @@ export default {
     },
     hideOverlay(state) {
       let app = document.querySelector('#app')
-      app.addEventListener('click', function(event) {
-        if(event.target.className == 'fixed') {
-          state.show = false
-        }
-      })
+      app.addEventListener('click', (event)=> event.target.className === 'fixed' ? state.show = false : true)
     },
     resize(state) {
-      window.addEventListener('resize', function() {
-        if(window.innerWidth > 992) {
-          state.show = false
-        }
-      })
+      window.addEventListener('resize', ()=> window.innerWidth > 992 ? state.show = false : true)
     },
     hide(state) {
       state.show = false
     }
-  },
-  actions: {
-  
   }
 }

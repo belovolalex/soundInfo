@@ -1,7 +1,6 @@
 <template lang="pug">
   section.top-artists
     .container
-      input.input-search(type="text" placeholder="search" @input="searchName($event)")
       router-link.artist(:to="`/top-artists/${item.name.toLowerCase()}`"
                         v-for="(item, idx) in artists"
                         :key="idx"
@@ -31,11 +30,6 @@ export default {
         this.$store.commit('topArtist/artists', data.data.artists.artist)
       })
       .catch((error) => error)
-  },
-  methods: {
-    searchName(e) {
-        this.$store.commit('topArtist/search', e.target.value)
-    }
   }
 }
 </script>
@@ -48,7 +42,6 @@ export default {
   position relative
   display flex
   flex-wrap wrap
-  padding-top 50px
 .top-artists
   min-height "calc(100vh - %s)" % $height-header
   height 100%
@@ -57,6 +50,9 @@ export default {
   position relative
   display inline-block
   cursor pointer
+.artist-wrapper-img:hover .artist__img
+  transition .3s
+  box-shadow none
 .artist-wrapper-img:hover .artist__name
   background-color rgba(0, 0, 0, 0.52)
   transition .3s
@@ -77,7 +73,10 @@ export default {
     width 33.3%
   +sm()
     width 25%
+  +lg()
+    width 20%
   &__name
+    transition 0.3s
     width 100%
     left 0
     color $tomato
@@ -87,10 +86,11 @@ export default {
     position absolute
     bottom 3px
     +sm()
-      padding 20px 0
+      padding 15px 0
       bottom 4px
   .artist__img
     width 100%
+    shadow-light()
 .input-search
   top 15px
   position absolute

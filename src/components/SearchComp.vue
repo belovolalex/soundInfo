@@ -3,14 +3,14 @@
     form(@submit.prevent="onSubmit")
       input.input-search(
                         type="text"
-                        placeholder="поиск исполнителей"
+                        placeholder="artist name"
                         v-model="name"
                         @focus="changeBlur"
                         :class="[ isShadow ? 'shadow-light' : 'shadow-dark' ]"
                         @blur="isShadow = !isShadow"
                         )
-      button искать
-    p.not-found(v-if="error") по вашемо запросу ничего не найдено попробуйте еще раз
+      button search
+    p.not-found(v-if="error") nothing found by your request, try again
 </template>
 
 <script>
@@ -25,16 +25,21 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store.commit('search/name', this.name)
+      if(this.name != '') {
+        this.$store.commit('search/name', this.name)
       let methodSearch = this.$store.getters['search/getSearchMethod']
       this.$store.dispatch('getData', methodSearch)
-        .then(data => window.location.href = data.data.results.artistmatches.artist[0].url)
-        // .then(data => window.open(data.data.results.artistmatches.artist[0].url, '_blank'))
+        .then(data => data.data.results.artistmatches.artist.length ? window.location.href = data.data.results.artistmatches.artist[0].url : this.error = true)
         .catch((error) => {
+          throw Error(error)
           this.error = true
         })
+      } else {
+          this.error = true
+      }
     },
     changeBlur() {
+      this.error = false
       this.isShadow = true
     }
   }
@@ -43,10 +48,13 @@ export default {
 
 <style lang="stylus" scoped>
 .not-found
-  margin-top 30px
+  margin-top 20px
   color white
-  font-size 2rem
+  font-size 1rem
+  position absolute
+  font-weight normal
 form
+  position relative
   display flex
   justify-content space-between
 .input-search:focus

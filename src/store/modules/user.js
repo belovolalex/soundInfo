@@ -25,7 +25,6 @@ export default {
       state.error = null
       localStorage.user = payload
       state.user = localStorage.getItem('user')
-      router.push('/')
     }
   },
   actions: {
@@ -36,6 +35,7 @@ export default {
         .then(user => {
           commit('setUser', user.user.uid)
           commit('menu/setUserLink', localStorage.user, {root: true})
+          router.push('/')
         })
         .catch(error => {
           commit('setError', error)
@@ -47,6 +47,7 @@ export default {
         .then(() => {
           commit('setUser', null)
           commit('menu/setUserLink', localStorage.user, {root: true})
+          router.push('/')
         })
         .catch(error => {
           commit('setError', error)

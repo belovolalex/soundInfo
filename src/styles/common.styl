@@ -16,7 +16,9 @@ lg()
 xl()
  @media (min-width 1600px)
     {block}
-
+size500()
+ @media (min-width 500px)
+   {block}
 
 
 //mixins
@@ -29,8 +31,8 @@ padding-block()
     padding-bottom 50px
 shadow()
   box-shadow 0 1px 8px rgba(0,0,0,0.4)
-shadow-strong()
-  box-shadow 10px 10px 14px 1px rgba(00,00,00,0.2)
+shadow-light()
+  box-shadow 5px 4px 7px 0px rgba(0,0,0,0.2)
   transition 0.3s
 shadow-white()
   transition 0.3s
@@ -57,13 +59,10 @@ placeholder()
 
 $tomato = #F85A53
 $light-blue = #41557c
-// $blue = #203152
 $blue = #0d1b38
-$blue-hover = #152035
 $light = #F1F3F6
 $light-grey = #C5CAD4
 $grey = #7E8DA6
-$gold = #c76a1f
 
 $height-header = 60px
 
